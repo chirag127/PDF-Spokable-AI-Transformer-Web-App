@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Spokable PDF</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">📖 Spokable PDF</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Convert</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Privacy Policy</h1>
+        <p><em>Last updated: November 19, 2025</em></p>
+
+        <div class="card">
+            <h2>Overview</h2>
+            <p>Spokable PDF is a client-side web application that prioritizes your privacy. This policy explains how we
+                handle your data.</p>
+        </div>
+
+        <div class="card">
+            <h2>Data Collection</h2>
+            <h3>What We Collect</h3>
+            <ul>
+                <li><strong>PDF Files</strong> - Stored locally in your browser's IndexedDB</li>
+                <li><strong>API Keys</strong> - Stored locally in your browser's localStorage</li>
+                <li><strong>Settings</strong> - Stored locally in your browser's localStorage</li>
+                <li><strong>Processing Logs</strong> - Stored locally in your browser's IndexedDB</li>
+            </ul>
+            <h3>What We DON'T Collect</h3>
+            <ul>
+                <li>No analytics or tracking by default</li>
+                <li>No server-side storage of your files</li>
+                <li>No personal information</li>
+                <li>No cookies (except for essential functionality)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Data Storage</h2>
+            <p>All data is stored locally in your browser using:</p>
+            <ul>
+                <li><strong>IndexedDB</strong> - For PDF files, processing state, and results</li>
+                <li><strong>localStorage</strong> - For settings and API keys</li>
+            </ul>
+            <p>You can clear all stored data at any time using the "Clear All Storage" button in Settings.</p>
+        </div>
+
+        <div class="card">
+            <h2>Third-Party Services</h2>
+            <h3>Google Gemini API</h3>
+            <p>When you convert a PDF, text chunks are sent to Google's Gemini API for transformation. This data is
+                subject to <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.
+            </p>
+            <p><strong>What is sent:</strong> Text extracted from your PDF, along with transformation prompts</p>
+            <p><strong>What is NOT sent:</strong> Your API key is sent in headers but not logged. Original PDF files are
+                not sent.</p>
+
+            <h3>CDN Services</h3>
+            <p>We load the following libraries from CDNs:</p>
+            <ul>
+                <li>PDF.js (Mozilla)</li>
+                <li>jsPDF</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Data Security</h2>
+            <ul>
+                <li>All API calls use HTTPS encryption</li>
+                <li>API keys are stored locally and never sent to our servers (we don't have servers!)</li>
+                <li>You control when and what data is sent to third-party APIs</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Your Rights</h2>
+            <p>You have complete control over your data:</p>
+            <ul>
+                <li><strong>Access</strong> - All data is accessible in your browser's developer tools</li>
+                <li><strong>Delete</strong> - Clear individual files or all data from Settings</li>
+                <li><strong>Export</strong> - Download your logs and settings</li>
+                <li><strong>Portability</strong> - All data is in standard formats (JSON, PDF)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Children's Privacy</h2>
+            <p>Spokable PDF does not knowingly collect information from children under 13. If you are under 13, please
+                use this service with parental supervision.</p>
+        </div>
+
+        <div class="card">
+            <h2>Changes to This Policy</h2>
+            <p>We may update this privacy policy from time to time. Changes will be posted on this page with an updated
+                revision date.</p>
+        </div>
+
+        <div class="card">
+            <h2>Contact Us</h2>
+            <p>If you have questions about this privacy policy, please visit our <a href="contact.html">Contact</a>
+                page.</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Spokable PDF. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Convert PDFs to TTS-friendly, spoken-language documents optimized for text-to-speech apps">
+    <title>Convert to Readable Spokable PDF</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">📖 Spokable PDF</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Convert</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Onboarding Banner -->
+        <div id="onboarding-banner" class="onboarding-banner" style="display: none;">
+            <div class="banner-content">
+                <h3>👋 Welcome! Let's get started</h3>
+                <p>To convert your first PDF, you'll need a Google AI Studio API key.</p>
+                <button id="start-walkthrough" class="btn btn-primary">Start Walkthrough</button>
+                <button id="dismiss-onboarding" class="btn btn-secondary">Dismiss</button>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Convert PDFs to Spokable Text</h1>
+            <p class="subtitle">Transform technical documents into natural, TTS-friendly narration</p>
+        </section>
+
+        <!-- File Upload Section -->
+        <section class="upload-section">
+            <div id="drop-zone" class="drop-zone">
+                <div class="drop-zone-content">
+                    <span class="drop-icon">📄</span>
+                    <h3>Drop PDF files here</h3>
+                    <p>or</p>
+                    <label for="file-input" class="btn btn-primary">Choose Files</label>
+                    <input type="file" id="file-input" accept=".pdf" multiple hidden>
+                    <p class="help-text">Supports multiple PDFs for batch processing</p>
+                </div>
+            </div>
+
+            <!-- Selected Files List -->
+            <div id="selected-files" class="selected-files" style="display: none;">
+                <h3>Selected Files</h3>
+                <div id="files-list"></div>
+                <div class="file-actions">
+                    <button id="download-selected" class="btn btn-secondary">Download Selected</button>
+                    <button id="clear-files" class="btn btn-secondary">Clear All</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conversion Controls -->
+        <section id="conversion-controls" class="conversion-controls" style="display: none;">
+            <button id="start-conversion" class="btn btn-primary btn-large">Convert to Spokable PDF</button>
+            <button id="settings-btn" class="btn btn-secondary">⚙️ Settings</button>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progress-section" class="progress-section" style="display: none;">
+            <div class="progress-header">
+                <h3 id="progress-stage">Preparing...</h3>
+                <button id="cancel-btn" class="btn btn-danger">Cancel</button>
+            </div>
+
+            <div class="progress-bars">
+                <div class="progress-item">
+                    <label>Overall Progress</label>
+                    <div class="progress-bar">
+                        <div id="overall-progress" class="progress-fill"></div>
+                    </div>
+                    <span id="overall-percent">0%</span>
+                </div>
+
+                <div class="progress-item">
+                    <label id="stage-label">Current Stage</label>
+                    <div class="progress-bar">
+                        <div id="stage-progress" class="progress-fill"></div>
+                    </div>
+                    <span id="stage-percent">0%</span>
+                </div>
+            </div>
+
+            <div class="progress-actions">
+                <button id="pause-btn" class="btn btn-secondary">Pause</button>
+                <button id="download-partial" class="btn btn-secondary">Download Partial Result</button>
+            </div>
+
+            <div class="progress-log">
+                <h4>Activity Log</h4>
+                <div id="log-output" class="log-output"></div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="results-section" style="display: none;">
+            <h2>✅ Conversion Complete!</h2>
+            <div class="results-actions">
+                <button id="download-result" class="btn btn-primary btn-large">Download Spokable PDF</button>
+                <button id="play-audio" class="btn btn-secondary">🔊 Play Audio</button>
+                <button id="convert-another" class="btn btn-secondary">Convert Another</button>
+            </div>
+
+            <!-- Audio Player -->
+            <div id="audio-player" class="audio-player" style="display: none;">
+                <h3>Audio Playback</h3>
+                <div class="audio-controls">
+                    <button id="audio-play-pause" class="btn btn-primary">▶️ Play</button>
+                    <button id="audio-prev" class="btn btn-secondary">⏮️ Previous</button>
+                    <button id="audio-next" class="btn btn-secondary">⏭️ Next</button>
+                </div>
+                <div class="audio-progress">
+                    <span id="audio-current-para">Paragraph 1 of 0</span>
+                    <input type="range" id="audio-seek" min="0" max="100" value="0">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>⚙️ Settings</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <button class="tab-btn active" data-tab="api">API Configuration</button>
+                    <button class="tab-btn" data-tab="processing">Processing</button>
+                    <button class="tab-btn" data-tab="prompts">Prompts</button>
+                    <button class="tab-btn" data-tab="pdf">PDF Output</button>
+                    <button class="tab-btn" data-tab="advanced">Advanced</button>
+                </div>
+
+                <!-- API Configuration Tab -->
+                <div id="tab-api" class="tab-content active">
+                    <div class="settings-section">
+                        <h3>Google AI Studio API Key</h3>
+                        <p class="help-text">Get your API key from <a href="https://aistudio.google.com/app/apikey"
+                                target="_blank">Google AI Studio</a></p>
+                        <input type="password" id="api-key" class="input-field" placeholder="Enter your API key">
+                        <button id="toggle-api-key" class="btn btn-secondary btn-small">Show</button>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Backup API Key (Optional)</h3>
+                        <p class="help-text">Fallback key if primary fails or hits quota</p>
+                        <input type="password" id="backup-api-key" class="input-field"
+                            placeholder="Enter backup API key">
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Model Selection</h3>
+                        <select id="primary-model" class="input-field">
+                            <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash (Experimental) - Fast, multimodal
+                            </option>
+                            <option value="gemini-1.5-pro">Gemini 1.5 Pro - Best reasoning</option>
+                            <option value="gemini-1.5-flash">Gemini 1.5 Flash - Balanced speed/quality</option>
+                            <option value="gemini-1.5-flash-8b">Gemini 1.5 Flash-8B - Fastest</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Fallback Models (Order)</h3>
+                        <div id="fallback-models" class="checkbox-group"></div>
+                    </div>
+
+                    <div class="settings-section">
+                        <button id="clear-api-keys" class="btn btn-danger">Clear All API Keys</button>
+                    </div>
+                </div>
+
+                <!-- Processing Tab -->
+                <div id="tab-processing" class="tab-content">
+                    <div class="settings-grid">
+                        <div class="settings-section">
+                            <label for="batch-size">Batch Size (tokens)</label>
+                            <input type="number" id="batch-size" class="input-field" min="1000" max="100000"
+                                value="8000">
+                            <p class="help-text">Chunk size for API requests</p>
+                        </div>
+
+                        <div class="settings-section">
+                            <label for="overlap-size">Overlap Size (tokens)</label>
+                            <input type="number" id="overlap-size" class="input-field" min="0" max="2000" value="200">
+                            <p class="help-text">Context overlap between chunks</p>
+                        </div>
+
+                        <div class="settings-section">
+                            <label for="max-retries">Max Retries</label>
+                            <input type="number" id="max-retries" class="input-field" min="0" max="10" value="3">
+                        </div>
+
+                        <div class="settings-section">
+                            <label for="retry-delay">Retry Delay (ms)</label>
+                            <input type="number" id="retry-delay" class="input-field" min="0" max="10000" value="1000">
+                        </div>
+
+                        <div class="settings-section">
+                            <label for="api-timeout">API Timeout (seconds)</label>
+                            <input type="number" id="api-timeout" class="input-field" min="10" max="300" value="60">
+                        </div>
+
+                        <div class="settings-section">
+                            <label for="rate-limit-delay">Rate Limit Delay (ms)</label>
+                            <input type="number" id="rate-limit-delay" class="input-field" min="0" max="5000"
+                                value="500">
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="turbo-mode">
+                            <span>Turbo Mode (Parallel Processing)</span>
+                        </label>
+                        <p class="help-text">Process multiple chunks simultaneously</p>
+                    </div>
+
+                    <div class="settings-section">
+                        <label for="parallel-chunks">Parallel Chunks Limit</label>
+                        <input type="number" id="parallel-chunks" class="input-field" min="1" max="10" value="3">
+                    </div>
+
+                    <div class="settings-section">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="multimodal-enabled">
+                            <span>Enable Multimodal (Send figures as images)</span>
+                        </label>
+                    </div>
+
+                    <div class="settings-section">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="auto-retry" checked>
+                            <span>Auto-retry failed requests</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Prompts Tab -->
+                <div id="tab-prompts" class="tab-content">
+                    <div class="settings-section">
+                        <h3>System Prompt</h3>
+                        <textarea id="system-prompt" class="textarea-field" rows="4"></textarea>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Text Transformation Prompt</h3>
+                        <textarea id="text-prompt" class="textarea-field" rows="6"></textarea>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Code Description Prompt</h3>
+                        <textarea id="code-prompt" class="textarea-field" rows="4"></textarea>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Table Conversion Prompt</h3>
+                        <textarea id="table-prompt" class="textarea-field" rows="4"></textarea>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Figure Description Prompt</h3>
+                        <textarea id="figure-prompt" class="textarea-field" rows="4"></textarea>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Math Notation Prompt</h3>
+                        <textarea id="math-prompt" class="textarea-field" rows="4"></textarea>
+                    </div>
+
+                    <div class="settings-section">
+                        <button id="reset-prompts" class="btn btn-secondary">Reset to Defaults</button>
+                    </div>
+                </div>
+
+                <!-- PDF Output Tab -->
+                <div id="tab-pdf" class="tab-content">
+                    <div class="settings-grid">
+                        <div class="settings-section">
+                            <label for="pdf-font">Font Family</label>
+                            <select id="pdf-font" class="input-field">
+                                <option value="helvetica">Helvetica</option>
+                                <option value="times">Times</option>
+                                <option value="courier">Courier</option>
+                            </select>
+                        </div>
+
+                        <div class="settings-section">
+                            <label for="pdf-font-size">Font Size (pt)</label>
+                            <input type="number" id="pdf-font-size" class="input-field" min="8" max="24" value="12">
+                        </div>
+
+                        <div class="settings-section">
+                            <label for="pdf-line-height">Line Height</label>
+                            <input type="number" id="pdf-line-height" class="input-field" min="1" max="3" step="0.1"
+                                value="1.5">
+                        </div>
+
+                        <div class="settings-section">
+                            <label for="pdf-margin">Page Margin (pt)</label>
+                            <input type="number" id="pdf-margin" class="input-field" min="10" max="100" value="40">
+                        </div>
+
+                        <div class="settings-section">
+                            <label for="pdf-page-size">Page Size</label>
+                            <select id="pdf-page-size" class="input-field">
+                                <option value="letter">Letter</option>
+                                <option value="a4">A4</option>
+                                <option value="legal">Legal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="pdf-page-numbers" checked>
+                            <span>Include Page Numbers</span>
+                        </label>
+                    </div>
+
+                    <div class="settings-section">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="pdf-toc">
+                            <span>Generate Table of Contents</span>
+                        </label>
+                    </div>
+
+                    <div class="settings-section">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="ssml-output">
+                            <span>Insert SSML markers for TTS</span>
+                        </label>
+                    </div>
+
+                    <div class="settings-section">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="insert-pauses">
+                            <span>Insert natural pauses</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Advanced Tab -->
+                <div id="tab-advanced" class="tab-content">
+                    <div class="settings-section">
+                        <h3>Model Parameters</h3>
+                        <div class="settings-grid">
+                            <div>
+                                <label for="temperature">Temperature</label>
+                                <input type="number" id="temperature" class="input-field" min="0" max="2" step="0.1"
+                                    value="0.7">
+                            </div>
+                            <div>
+                                <label for="top-p">Top P</label>
+                                <input type="number" id="top-p" class="input-field" min="0" max="1" step="0.1"
+                                    value="0.95">
+                            </div>
+                            <div>
+                                <label for="top-k">Top K</label>
+                                <input type="number" id="top-k" class="input-field" min="1" max="100" value="40">
+                            </div>
+                            <div>
+                                <label for="max-output-tokens">Max Output Tokens</label>
+                                <input type="number" id="max-output-tokens" class="input-field" min="100" max="8192"
+                                    value="2048">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Transformation Rules</h3>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="preserve-formatting" checked>
+                            <span>Preserve original formatting hints</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="expand-acronyms" checked>
+                            <span>Expand acronyms on first use</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remove-citations" checked>
+                            <span>Remove inline citations</span>
+                        </label>
+                    </div>
+
+                    <div class="settings-section">
+                        <label for="verbosity">Verbosity Level</label>
+                        <select id="verbosity" class="input-field">
+                            <option value="concise">Concise</option>
+                            <option value="balanced" selected>Balanced</option>
+                            <option value="detailed">Detailed</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-section">
+                        <label for="tone">Tone</label>
+                        <select id="tone" class="input-field">
+                            <option value="conversational" selected>Conversational</option>
+                            <option value="formal">Formal</option>
+                            <option value="technical">Technical</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-section">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="advanced-logs">
+                            <span>Enable advanced logging</span>
+                        </label>
+                    </div>
+
+                    <div class="settings-section">
+                        <button id="export-logs" class="btn btn-secondary">Export Logs</button>
+                        <button id="clear-storage" class="btn btn-danger">Clear All Storage</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p class="help-text">All settings auto-save</p>
+                <button class="btn btn-primary modal-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Walkthrough Modal -->
+    <div id="walkthrough-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🚀 Quick Start Guide</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="walkthrough-content"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="walkthrough-prev" class="btn btn-secondary">Previous</button>
+                <button id="walkthrough-next" class="btn btn-primary">Next</button>
+                <button id="walkthrough-skip" class="btn btn-secondary">Skip</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Spokable PDF. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/init.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/file-handler.js"></script>
+    <script src="js/pdf-extractor.js"></script>
+    <script src="js/chunking.js"></script>
+    <script src="js/api-client.js"></script>
+    <script src="js/retry-manager.js"></script>
+    <script src="js/pdf-generator.js"></script>
+    <script src="js/tts-player.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

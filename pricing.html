@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Spokable PDF</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">📖 Spokable PDF</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Convert</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="pricing.html" class="nav-link active">Pricing</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Pricing</h1>
+            <p class="subtitle">Spokable PDF is free. You only pay for API usage.</p>
+        </section>
+
+        <div class="card">
+            <h2>Spokable PDF Application</h2>
+            <h3 style="color: var(--color-success); font-size: 2rem;">FREE</h3>
+            <p>The Spokable PDF web application is completely free to use. It's open source and runs entirely in your
+                browser.</p>
+            <ul>
+                <li>✅ Unlimited PDF conversions</li>
+                <li>✅ All features included</li>
+                <li>✅ No subscription required</li>
+                <li>✅ No account needed</li>
+                <li>✅ Open source</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Google Gemini API Costs</h2>
+            <p>You'll need a Google Gemini API key to use the transformation features. Google offers generous free
+                tiers:</p>
+
+            <h3>Free Tier (Gemini 1.5 Flash)</h3>
+            <ul>
+                <li>15 requests per minute (RPM)</li>
+                <li>1 million tokens per minute (TPM)</li>
+                <li>1,500 requests per day (RPD)</li>
+                <li><strong>Perfect for personal use!</strong></li>
+            </ul>
+
+            <h3>Paid Tier Pricing (Pay-as-you-go)</h3>
+            <p>If you exceed free tier limits, pricing is very affordable:</p>
+            <ul>
+                <li><strong>Gemini 1.5 Flash:</strong> $0.075 per 1M input tokens, $0.30 per 1M output tokens</li>
+                <li><strong>Gemini 1.5 Pro:</strong> $1.25 per 1M input tokens, $5.00 per 1M output tokens</li>
+            </ul>
+
+            <p><strong>Example:</strong> A 100-page technical PDF (~50,000 tokens) would cost approximately $0.004 -
+                $0.06 to convert using Gemini Flash.</p>
+
+            <p><a href="https://ai.google.dev/pricing" target="_blank" class="btn btn-primary">View Official Google
+                    Pricing</a></p>
+        </div>
+
+        <div class="card">
+            <h2>Cost Optimization Tips</h2>
+            <ul>
+                <li>🎯 <strong>Use Gemini Flash</strong> - Fastest and cheapest model for most documents</li>
+                <li>⚙️ <strong>Adjust Batch Size</strong> - Larger batches = fewer API calls</li>
+                <li>🔄 <strong>Reduce Overlap</strong> - Less overlap = fewer tokens processed</li>
+                <li>📊 <strong>Monitor Usage</strong> - Check your Google Cloud Console for usage stats</li>
+                <li>⏸️ <strong>Use Pause/Resume</strong> - Stop processing if costs are a concern</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>No Hidden Fees</h2>
+            <p>We don't charge anything. The only costs are:</p>
+            <ul>
+                <li>Google Gemini API usage (if you exceed free tier)</li>
+                <li>Your internet connection</li>
+            </ul>
+            <p><strong>That's it!</strong> No subscriptions, no premium features, no upsells.</p>
+        </div>
+
+        <div class="card">
+            <h2>Get Started</h2>
+            <ol>
+                <li>Get a free Google Gemini API key at <a href="https://aistudio.google.com/app/apikey"
+                        target="_blank">Google AI Studio</a></li>
+                <li>Enter your API key in Spokable PDF Settings</li>
+                <li>Start converting PDFs!</li>
+            </ol>
+            <p><a href="index.html" class="btn btn-primary btn-large">Start Converting Now</a></p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Spokable PDF. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>

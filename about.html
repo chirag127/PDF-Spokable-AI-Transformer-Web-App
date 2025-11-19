@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Spokable PDF</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">📖 Spokable PDF</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Convert</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>About Spokable PDF</h1>
+            <p class="subtitle">Transform technical documents into natural, spoken language</p>
+        </section>
+
+        <section class="card">
+            <h2>What is Spokable PDF?</h2>
+            <p>Spokable PDF is a powerful, client-side web application that converts technical PDFs into text-to-speech
+                friendly documents. Using advanced AI from Google's Gemini models, it transforms code examples, tables,
+                figures, and mathematical notation into natural, spoken language that sounds great when read aloud by
+                TTS apps.</p>
+        </section>
+
+        <section class="card">
+            <h2>Key Features</h2>
+            <ul style="line-height: 2;">
+                <li>🤖 <strong>AI-Powered Transformation</strong> - Uses Google Gemini API for intelligent text
+                    conversion</li>
+                <li>📊 <strong>Smart Content Detection</strong> - Automatically identifies and converts code, tables,
+                    figures, and formulas</li>
+                <li>⚡ <strong>Batch Processing</strong> - Handles large documents with intelligent chunking and overlap
+                </li>
+                <li>🔄 <strong>Automatic Failover</strong> - Switches between models if one fails or hits rate limits
+                </li>
+                <li>💾 <strong>Offline Storage</strong> - Saves PDFs and progress locally using IndexedDB</li>
+                <li>🎙️ <strong>In-Browser TTS</strong> - Preview your transformed text with built-in voice playback
+                </li>
+                <li>🌓 <strong>Dark Mode</strong> - Beautiful light and dark themes</li>
+                <li>🔒 <strong>Privacy First</strong> - All processing happens in your browser, data stays local</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>How It Works</h2>
+            <ol style="line-height: 2;">
+                <li><strong>Upload</strong> - Select a PDF with selectable text (no OCR required)</li>
+                <li><strong>Extract</strong> - Text is extracted from the PDF using PDF.js</li>
+                <li><strong>Analyze</strong> - Content is classified into paragraphs, code, tables, figures, etc.</li>
+                <li><strong>Chunk</strong> - Text is split into manageable chunks with configurable overlap</li>
+                <li><strong>Transform</strong> - Each chunk is sent to Gemini API for natural language conversion</li>
+                <li><strong>Reconcile</strong> - Chunks are reassembled, removing duplicate overlap content</li>
+                <li><strong>Generate</strong> - A new, TTS-friendly PDF is created with the transformed text</li>
+            </ol>
+        </section>
+
+        <section class="card">
+            <h2>Technology Stack</h2>
+            <p>Spokable PDF is built with modern web technologies:</p>
+            <ul style="line-height: 2;">
+                <li><strong>Frontend</strong> - Vanilla JavaScript, HTML5, CSS3</li>
+                <li><strong>PDF Processing</strong> - PDF.js for text extraction, jsPDF for generation</li>
+                <li><strong>AI</strong> - Google Gemini API (REST)</li>
+                <li><strong>Storage</strong> - IndexedDB for local persistence, localStorage for settings</li>
+                <li><strong>TTS</strong> - Web Speech API for in-browser playback</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Use Cases</h2>
+            <ul style="line-height: 2;">
+                <li>📚 <strong>Academic Papers</strong> - Convert research papers for audio consumption</li>
+                <li>💻 <strong>Technical Documentation</strong> - Make API docs and manuals TTS-friendly</li>
+                <li>📖 <strong>eBooks</strong> - Transform technical eBooks for better TTS experience</li>
+                <li>📝 <strong>Reports</strong> - Convert business reports with tables and charts</li>
+                <li>🎓 <strong>Study Materials</strong> - Make textbooks accessible for audio learning</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Open Source</h2>
+            <p>Spokable PDF is open source and available on GitHub. Contributions, bug reports, and feature requests are
+                welcome!</p>
+            <p><a href="https://github.com/yourusername/spokable-pdf" target="_blank" class="btn btn-primary">View on
+                    GitHub</a></p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Spokable PDF. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>

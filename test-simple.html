@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Spokable PDF</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Button Test</h1>
+        <button id="test-btn" class="btn btn-primary">Click Me</button>
+        <p id="output">Waiting for click...</p>
+    </div>
+
+    <script>
+        console.log('Script loaded');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded');
+
+            const btn = document.getElementById('test-btn');
+            const output = document.getElementById('output');
+
+            if (btn) {
+                console.log('Button found');
+                btn.addEventListener('click', () => {
+                    console.log('Button clicked!');
+                    output.textContent = 'Button works! ' + new Date().toLocaleTimeString();
+                });
+            } else {
+                console.error('Button not found');
+            }
+        });
+    </script>
+</body>
+
+</html>

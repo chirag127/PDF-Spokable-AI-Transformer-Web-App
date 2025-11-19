@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Spokable PDF</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">📖 Spokable PDF</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Convert</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="faq.html" class="nav-link active">FAQ</a></li>
+                <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="card">
+            <h3>How do I get a Google AI Studio API key?</h3>
+            <p>Visit <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>, sign in with
+                your Google account, and click "Create API Key". Copy the key and paste it into the Settings page of
+                Spokable PDF.</p>
+        </div>
+
+        <div class="card">
+            <h3>Is my data secure?</h3>
+            <p>Yes! All processing happens in your browser. Your PDFs and API keys are stored only in your browser's
+                local storage (IndexedDB and localStorage). The only data sent externally is text chunks to the Google
+                Gemini API for transformation.</p>
+        </div>
+
+        <div class="card">
+            <h3>Does this work with scanned PDFs?</h3>
+            <p>No, Spokable PDF requires PDFs with selectable text. If your PDF is a scanned image, you'll need to run
+                OCR (Optical Character Recognition) on it first using tools like Adobe Acrobat or online OCR services.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>What's the difference between Turbo Mode and normal processing?</h3>
+            <p>Turbo Mode processes multiple chunks in parallel, significantly speeding up conversion for large
+                documents. Normal mode processes chunks sequentially. Turbo Mode may hit rate limits faster, so adjust
+                the parallel chunks setting accordingly.</p>
+        </div>
+
+        <div class="card">
+            <h3>Why did my conversion fail?</h3>
+            <p>Common reasons include: invalid API key, rate limits, network issues, or quota exceeded. Check the
+                activity log for details. The app automatically retries with fallback models if configured.</p>
+        </div>
+
+        <div class="card">
+            <h3>Can I customize the transformation prompts?</h3>
+            <p>Yes! Go to Settings → Prompts tab to edit system prompts and transformation instructions for different
+                content types (code, tables, figures, etc.).</p>
+        </div>
+
+        <div class="card">
+            <h3>How much does it cost?</h3>
+            <p>Spokable PDF is free to use. You only pay for Google Gemini API usage based on your API plan. Gemini
+                offers generous free tiers. See the <a href="pricing.html">Pricing</a> page for details.</p>
+        </div>
+
+        <div class="card">
+            <h3>Can I process multiple PDFs at once?</h3>
+            <p>Yes! You can select multiple PDFs, and they'll be processed sequentially. Batch processing for parallel
+                PDF conversion is on the roadmap.</p>
+        </div>
+
+        <div class="card">
+            <h3>What browsers are supported?</h3>
+            <p>Modern browsers with ES6+, IndexedDB, and Fetch API support. Recommended: Chrome 90+, Firefox 88+, Safari
+                14+, Edge 90+.</p>
+        </div>
+
+        <div class="card">
+            <h3>Can I use this offline?</h3>
+            <p>Partially. Once loaded, the app works offline for file management and settings. However, the AI
+                transformation requires an internet connection to call the Gemini API.</p>
+        </div>
+
+        <div class="card">
+            <h3>How do I report bugs or request features?</h3>
+            <p>Visit our <a href="contact.html">Contact</a> page or open an issue on our GitHub repository.</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Spokable PDF. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>
