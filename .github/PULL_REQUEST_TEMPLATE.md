@@ -1,66 +1,47 @@
-# 🚀 Pull Request Template: Apex Review Protocol
+# Pull Request Template
 
-**Repository:** `chirag127/FluentPDF-AI-Powered-Text-To-Speech-Converter-CLI`
+## Description
 
---- 
+Provide a concise summary of the changes introduced by this pull request. What problem does it solve? What new feature does it add?
 
-## 📝 Summary of Changes
+## Type of Change
 
-<!-- Briefly describe the purpose of this pull request. Link to any relevant issue (e.g., `Closes #123`). -->
+(Select all that apply)
 
-[Issue Reference/Ticket]: 
+*   [ ] Bug fix (non-breaking change which fixes an issue)
+*   [ ] New feature (non-breaking change which adds functionality)
+*   [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+*   [ ] Documentation update
+*   [ ] Refactoring / Code style changes
+*   [ ] Performance improvements
+*   [ ] Other (please specify):
 
-## ✅ Checklist for the Author
+## Checklist
 
-Before requesting a review, ensure you have satisfied all architectural and quality gates:
+<!-- Please go through this checklist and check off all the applicable items. Your changes are almost ready to be merged. -->
 
-1.  [ ] **Functional Verification:** Does this change meet the stated requirement? (Self-test completed).
-2.  [ ] **Code Style:** Has `ruff format` been run successfully on all modified files? (Linter checks pass).
-3.  [ ] **Testing:** Are new unit/integration tests included for new logic? (Pytest coverage maintained/increased).
-4.  [ ] **Documentation:** Have I updated `README.md` or associated documentation if the public API changed?
-5.  [ ] **Security:** Have I reviewed dependencies for vulnerabilities (checked against current `uv list --outdated`)?
-6.  [ ] **Architectural Compliance:** Does this PR adhere to **SOLID** principles and the **Modular Monolith** pattern defined in `AGENTS.md`?
-7.  [ ] **Async Safety:** If asynchronous operations are involved, are race conditions or resource deadlocks mitigated?
+*   [ ] I have performed a self-review of my own code.
+*   [ ] I have commented my code, particularly in hard-to-understand areas.
+*   [ ] I have made corresponding changes to the documentation (if applicable).
+*   [ ] My changes generate no new warnings or errors.
+*   [ ] I have added tests that prove my fix is effective or that my feature works.
+*   [ ] New and existing unit tests pass locally with my changes.
+*   [ ] Any dependent changes have been merged and published.
 
-## 🔎 Technical Deep Dive
+## Related Issues
 
-<!-- Provide context for the reviewer. Explain *why* certain architectural decisions were made, especially concerning the Node.js/JavaScript core and PDF parsing strategy. -->
+(Link to any issues this PR addresses, e.g., `Fixes #123`, `Closes #456`)
 
-### Core Logic Walkthrough
+## Additional Context
 
-1.  **PDF Extraction:** (e.g., `pdf-parse` usage, raw buffer handling).
-2.  **Text Optimization Pass:** (e.g., cleanup regex, handling of hyphenation/line breaks for better TTS flow).
-3.  **TTS Integration:** (e.g., Which specific TTS engine/library is used, and what parameters were configured? e.g., `elevenlabs` or native Node modules).
-4.  **CLI Interface:** (e.g., Changes to `Commander` or `Yargs` usage).
+Add any other context about the change here. Screenshots, performance benchmarks, or other information that may be helpful to the reviewer.
 
-### Affected Files (High Impact)
+## AI Agent Directives Alignment
 
-*   `src/processor.js`
-*   `src/cli.js`
-*   `lib/tts_adapter.js` (If applicable)
+This pull request has been reviewed against the **AI Agent Directives** documented in [AGENTS.md](https://github.com/chirag127/PDF-Spokable-AI-Transformer-Web-App/blob/main/AGENTS.md).
 
-## 🧪 Verification Steps for Reviewer
+*   **Technology Stack:** Confirmed adherence to **JavaScript/TypeScript**, **Vite**, **TailwindCSS v4**, **Tauri v2**, **Biome**, and **Vitest/Playwright**. (Adapt as necessary for the specific repo stack).
+*   **Architecture:** Verified compliance with **Feature-Sliced Design (FSD)** principles.
+*   **Verification Commands:** Ensure local testing commands (e.g., `npm run test`, `npx biome check --apply`) are executed and pass.
 
-To validate this PR, execute the following steps:
-
-1.  Checkout branch and install dependencies:
-    bash
-    git checkout <branch-name>
-    npm install
-    
-2.  Run linting and formatting:
-    bash
-    npm run lint
-    npm run format
-    
-3.  Execute relevant test suite:
-    bash
-    npm run test:unit
-    # OR for integration/E2E verification:
-    npm run test:e2e -- --pdf <path/to/test_document.pdf>
-    
-4.  Manually test the core feature flow (e.g., `node dist/cli.js process --input ./test.pdf --output ./output.mp3`).
-
---- 
-
-**Reviewer Focus Area:** Please pay close attention to error handling around I/O streams and text normalization before TTS synthesis.
+If any of these directives are not met, please address them before merging.
