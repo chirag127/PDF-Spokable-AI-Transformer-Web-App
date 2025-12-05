@@ -1,0 +1,28 @@
+badges:
+  - name: Build Status
+    url: "https://img.shields.io/github/actions/workflow/status/chirag127/PDF-Spokable-AI-Transformer-Web-App/ci.yml?style=flat-square"
+    markdown: "[![Build Status](https://img.shields.io/github/actions/workflow/status/chirag127/PDF-Spokable-AI-Transformer-Web-App/ci.yml?style=flat-square)]"
+
+  - name: Code Coverage
+    url: "https://img.shields.io/codecov/c/github/chirag127/PDF-Spokable-AI-Transformer-Web-App?style=flat-square"
+    markdown: "[![Code Coverage](https://img.shields.io/codecov/c/github/chirag127/PDF-Spokable-AI-Transformer-Web-App?style=flat-square)]"
+
+  - name: Language
+    url: "https://img.shields.io/badge/Language-JavaScript-yellow?style=flat-square"
+    markdown: "[![Language](https://img.shields.io/badge/Language-JavaScript-yellow?style=flat-square)]"
+
+  - name: Frameworks
+    url: "https://img.shields.io/badge/Frameworks-Vite%20%26%20VanillaJS-blue?style=flat-square"
+    markdown: "[![Frameworks](https://img.shields.io/badge/Frameworks-Vite%20%26%20VanillaJS-blue?style=flat-square)]"
+
+  - name: License
+    url: "https://img.shields.io/badge/License-CC%20BY--NC%204.0-orange?style=flat-square"
+    markdown: "[![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-orange?style=flat-square)]"
+
+  - name: GitHub Stars
+    url: "https://img.shields.io/github/stars/chirag127/PDF-Spokable-AI-Transformer-Web-App?style=flat-square"
+    markdown: "[![GitHub Stars](https://img.shields.io/github/stars/chirag127/PDF-Spokable-AI-Transformer-Web-App?style=flat-square)]"
+
+  - name: Open Issues
+    url: "https://img.shields.io/github/issues/chirag127/PDF-Spokable-AI-Transformer-Web-App?style=flat-square"
+    markdown: "[![Open Issues](https://img.shields.io/github/issues/chirag127/PDF-Spokable-AI-Transformer-Web-App?style=flat-square)]"
