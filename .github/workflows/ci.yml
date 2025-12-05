@@ -1,104 +1,86 @@
-# Apex Continuous Integration Workflow for Node.js CLI
-# Standard: Node.js 20.x LTS (LTS: Finch/Gallium - Dec 2025 Context)
-
-name: CI - FluentPDF Build & Verify
+name: Apex CI Pipeline - PDF Transformer
 
 on:
   push:
     branches: [ main, develop ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:
 
+# Define the execution environment based on the JavaScript/Web App context
 jobs:
   build_and_test:
-    name: Build, Lint, Test
+    name: Build, Lint & Unit Test
     runs-on: ubuntu-latest
-    env:
-      # Apex Environment Variables for Consistency
-      NODE_VERSION: '20.x'
-      LINT_TOOL: 'biome'
-      TEST_TOOL: 'vitest'
 
     steps:
-      - name: 🛑 Checkout Repository
-        uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-      - name: ⬇️ Setup Node.js Environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+    - name: Set up Node.js (2025 Standard)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Using a stable LTS version for 2025 context
+        cache: 'npm'
 
-      - name: 📦 Install Dependencies (uv replacement standard)
-        run: npm ci
+    - name: Install Dependencies (Using npm for JS project)
+      run: npm ci
 
-      - name: 🧹 Static Analysis & Formatting (Biome)
-        # Biome enforces style and catches lint errors rapidly
-        run: npx ${{ env.LINT_TOOL }} check --apply-unsafe
+    - name: Run Linter & Formatter (Biome Check)
+      # Biome is chosen for speed and modern JS/TS linting compliance
+      run: npx @biomejs/biome check --no-errors-on-warnings . --formatter-check=true
 
-      - name: 🔬 Unit & Integration Testing (Vitest)
-        # Assuming test coverage reports are generated
-        run: npx vitest run --coverage --coverage.reportOnFailure=true
+    - name: Run Unit Tests (Vitest)
+      # Assuming Vitest is configured for client-side/Node environment testing
+      run: npx vitest:test --coverage
 
-      - name: 📊 Upload Coverage Reports (Codecov)
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/cobertura-coverage.xml
-          flags: cli,node
+    - name: Upload Coverage Reports
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/lcov.info
+        flags: unittests
+        name: codecov-umbrella
 
-      - name: ✅ Verify Final State (Zero Defects)
-        run: echo "Build and quality checks passed successfully. Ready for deployment promotion."
-
-  security:
-    name: Security Audit (Snyk)
-    runs-on: ubuntu-latest
+  e2e_verification:
+    name: E2E Verification (Playwright)
     needs: build_and_test
-    # Integrating modern security scanning practice (Snyk as a standard choice)
-    if: success()
-    steps:
-      - name: 🛑 Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: ⬇️ Setup Node.js Environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-
-      - name: 🛡️ Install Snyk CLI
-        run: npm install -g snyk
-
-      - name: 🔍 Run Snyk Vulnerability Scan
-        # Requires SNYK_TOKEN secret
-        run: snyk test --severity-threshold=high
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-  release:
-    name: Automated Release Prep
     runs-on: ubuntu-latest
-    needs: [build_and_test, security]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    permissions:
-      contents: write
 
     steps:
-      - name: 🛑 Checkout Repository
-        uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-      - name: 📦 Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
 
-      - name: ⬆️ Prepare Release Bump (Standardized SemVer)
-        run: | 
-          npm install -g semantic-release-cli
-          # This step assumes semantic-release/semantic-release is configured in package.json
-          # We run a dry run for demonstration purposes or trigger the actual release if secrets are present
-          echo "Triggering automated semantic release preparation on main branch."
-          npx semantic-release --dry-run
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run End-to-End Tests
+      # Assuming standard setup for running Playwright tests
+      run: npx playwright test --project=chromium
+
+  deploy:
+    name: Deploy Artifact (If Main Branch)
+    if: github.ref == 'refs/heads/main'
+    needs: [build_and_test, e2e_verification]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Archive Built Assets
+      uses: actions/upload-artifact@v4
+      with:
+        name: pdf-transformer-build-asset
+        path: dist/ # Assuming Vite builds output to 'dist'
+        retention-days: 5
+
+    - name: Deployment Placeholder
+      run: |
+        echo "Deployment to staging/production environments would occur here."
+        echo "Using context-aware secrets management for cloud providers..."
